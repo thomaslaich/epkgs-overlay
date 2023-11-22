@@ -1,0 +1,24 @@
+* An overlay that exposes additional emacs packages unavailable on MELPA
+
+When using e.g. ~emacsWithPackagesFromUsePackage~ from [[https://github.com/nix-community/emacs-overlay][emacs overlay]], then one can use all packages available
+on MELPA using ~(usePackage <package-name>)~. The emacs overlay will automatically download these packages from
+the nix package repository under ~emacsPackages.<package-name>~. However, any emacs package unavailable on MELPA,
+is also not available in the Nix package repository.
+
+This flake solves this problem by exposing an overlay that exposes additional emacs packages available under ~pkgs.emacsPackages.~.
+
+In particular, it exposes:
+- [[https://github.com/zerolfx/copilot.el][copilot.el]]
+  
+** Install
+Add the flake to your inputs:
+
+#+begin_src nix
+  inputs.epkgs-overlay.url = "github:thomaslaich/epkgs-overlay";
+
+  outputs = {..., epkgs-overlay, ...}:
+    ...
+    let pkgs = import nixpkgs { inherit system; overlays = [ epkgs-overlay.overlays.default, ... ]; }
+    ...
+    in ...
+#+end_src
