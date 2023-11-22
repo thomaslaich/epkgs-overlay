@@ -41,9 +41,9 @@
         };
       }) // {
         overlays.default = final: prev: {
-          emacsPackages = prev.emacsPackages.extend (final': prev': {
+          emacsPackages = prev.emacsPackages // {
             inherit (self.packages.${prev.system}) copilot;
-          });
+          };
         };
       };
 }
