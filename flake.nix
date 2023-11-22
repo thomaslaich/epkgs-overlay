@@ -23,8 +23,8 @@
         pkgs = import nixpkgs { inherit system; };
 
         copilot = pkgs.emacsPackages.trivialBuild {
-          pname = "lsp-progress";
-          version = "2023-11-14";
+          pname = "copilot";
+          version = "2023-11-08";
           packageRequires = with pkgs.emacsPackages; [ dash editorconfig s ];
           preInstall = ''
             mkdir -p $out/share/emacs/site-lisp
