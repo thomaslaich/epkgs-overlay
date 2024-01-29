@@ -15,13 +15,18 @@
       repo = "copilot.el";
       flake = false;
     };
+    jsonrpc-el = {
+      url = "https://elpa.gnu.org/packages/jsonrpc-1.0.24.tar";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, copilot-el, ... }:
+  outputs = { self, nixpkgs, flake-utils, copilot-el, jsonrpc-el, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
 
+        # copilot.el is not on MELPA, so we need to build it ourselves
         copilot = pkgs.emacsPackages.trivialBuild {
           pname = "copilot";
           version = "2023-11-08";
@@ -33,16 +38,24 @@
           src = copilot-el;
           meta.homepage = "https://github.com/zerolfx/copilot.el/";
         };
+        # currently only version 1.0.17 is available in nixpkgs. 1.0.24 is required for copilot.el.
+        jsonrpc = pkgs.emacsPackages.elpaBuild {
+          pname = "jsonrpc";
+          ename = "jsonrpc";
+          version = "1.0.24";
+          src = "${jsonrpc-el}/jsonrpc.el";
+          packageRequires = [ pkgs.emacs ];
+        };
 
       in {
         packages = {
-          default = copilot;
           inherit copilot;
+          inherit jsonrpc;
         };
       }) // {
         overlays.default = final: prev: {
           emacsPackages = prev.emacsPackages // {
-            inherit (self.packages.${prev.system}) copilot;
+            inherit (self.packages.${prev.system}) copilot jsonrpc;
           };
         };
       };

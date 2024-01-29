@@ -50,6 +50,19 @@
         "type": "github"
       }
     },
+    "jsonrpc-el": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705356212,
+        "narHash": "sha256-KZL1wxZtrbSh+n+PWRaOKDvqg+8CAZd4vMHMCJmAb3E=",
+        "type": "tarball",
+        "url": "https://elpa.gnu.org/packages/jsonrpc-1.0.24.tar"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://elpa.gnu.org/packages/jsonrpc-1.0.24.tar"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1706191920,
@@ -71,6 +84,7 @@
         "copilot-el": "copilot-el",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
+        "jsonrpc-el": "jsonrpc-el",
         "nixpkgs": "nixpkgs"
       }
     },
