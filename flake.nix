@@ -26,18 +26,6 @@
       let
         pkgs = import nixpkgs { inherit system; };
 
-        # copilot.el is not on MELPA, so we need to build it ourselves
-        copilot = pkgs.emacsPackages.trivialBuild {
-          pname = "copilot";
-          version = "2023-11-08";
-          packageRequires = with pkgs.emacsPackages; [ dash editorconfig s ];
-          preInstall = ''
-            mkdir -p $out/share/emacs/site-lisp
-            cp -vr $src/dist $out/share/emacs/site-lisp
-          '';
-          src = copilot-el;
-          meta.homepage = "https://github.com/zerolfx/copilot.el/";
-        };
         # currently only version 1.0.17 is available in nixpkgs. 1.0.24 is required for copilot.el.
         jsonrpc = pkgs.emacsPackages.elpaBuild {
           pname = "jsonrpc";
@@ -45,6 +33,24 @@
           version = "1.0.24";
           src = "${jsonrpc-el}/jsonrpc.el";
           packageRequires = [ pkgs.emacs ];
+        };
+
+        # copilot.el is not on MELPA, so we need to build it ourselves
+        copilot = pkgs.emacsPackages.trivialBuild {
+          pname = "copilot";
+          version = "2023-11-08";
+          packageRequires = with pkgs.emacsPackages; [
+            dash
+            editorconfig
+            s
+            jsonrpc
+          ];
+          preInstall = ''
+            mkdir -p $out/share/emacs/site-lisp
+            cp -vr $src/dist $out/share/emacs/site-lisp
+          '';
+          src = copilot-el;
+          meta.homepage = "https://github.com/zerolfx/copilot.el/";
         };
 
       in {
