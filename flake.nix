@@ -16,7 +16,7 @@
       flake = false;
     };
     jsonrpc-el = {
-      url = "https://elpa.gnu.org/packages/jsonrpc-1.0.24.tar";
+      url = "https://elpa.gnu.org/packages/jsonrpc-1.0.25.tar";
       flake = false;
     };
   };
