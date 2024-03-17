@@ -44,6 +44,7 @@
             editorconfig
             s
             jsonrpc
+            f
           ];
           preInstall = ''
             mkdir -p $out/share/emacs/site-lisp

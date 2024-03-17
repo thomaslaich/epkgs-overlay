@@ -9,6 +9,7 @@ This flake solves this problem by exposing an overlay that exposes additional em
 
 In particular, it exposes:
 - [[https://github.com/zerolfx/copilot.el][copilot.el]]
+- [[https://elpa.gnu.org/packages/jsonrpc.html][jsonrpc.el]]
   
 ** Install
 Add the flake to your inputs:
