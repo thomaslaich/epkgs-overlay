@@ -18,6 +18,10 @@
       url = "https://elpa.gnu.org/packages/jsonrpc-1.0.25.tar";
       flake = false;
     };
+    kubed-el = {
+      url = "https://elpa.gnu.org/packages/kubed-0.4.2.tar";
+      flake = false;
+    };
   };
 
   outputs =
@@ -27,6 +31,7 @@
       flake-utils,
       copilot-el,
       jsonrpc-el,
+      kubed-el,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -34,19 +39,10 @@
       let
         pkgs = import nixpkgs { inherit system; };
 
-        # currently only version 1.0.17 is available in nixpkgs. 1.0.24 is required for copilot.el.
-        jsonrpc = pkgs.emacsPackages.elpaBuild {
-          pname = "jsonrpc";
-          ename = "jsonrpc";
-          version = "1.0.25";
-          src = "${jsonrpc-el}/jsonrpc.el";
-          packageRequires = [ pkgs.emacs ];
-        };
-
         # copilot.el is not on MELPA, so we need to build it ourselves
         copilot = pkgs.emacsPackages.trivialBuild {
           pname = "copilot";
-          version = "2024-05-01";
+          version = "2024-11-18";
           packageRequires =
             with pkgs.emacsPackages;
             [
@@ -63,11 +59,29 @@
           src = copilot-el;
           meta.homepage = "https://github.com/zerolfx/copilot.el/";
         };
+
+        # currently only version 1.0.17 is available in nixpkgs. 1.0.24 is required for copilot.el.
+        jsonrpc = pkgs.emacsPackages.elpaBuild {
+          pname = "jsonrpc";
+          ename = "jsonrpc";
+          version = "1.0.25";
+          src = "${jsonrpc-el}/jsonrpc.el";
+          packageRequires = [ pkgs.emacs ];
+        };
+
+        kubed = pkgs.emacsPackages.elpaBuild {
+          pname = "kubed";
+          ename = "kubed";
+          version = "0.4.2";
+          src = "${kubed-el}";
+          packageRequires = [ pkgs.emacs ];
+        };
       in
       {
         packages = {
           inherit copilot;
           inherit jsonrpc;
+          inherit kubed;
         };
       }
     )
