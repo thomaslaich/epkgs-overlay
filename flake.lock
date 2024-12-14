@@ -63,19 +63,6 @@
         "url": "https://elpa.gnu.org/packages/jsonrpc-1.0.25.tar"
       }
     },
-    "kubed-el": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1729587881,
-        "narHash": "sha256-63otfqeRRB34mTCgdizUlOIbRg/cjRdBAYopy9WAuW8=",
-        "type": "tarball",
-        "url": "https://elpa.gnu.org/packages/kubed-0.4.2.tar"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://elpa.gnu.org/packages/kubed-0.4.2.tar"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1733581040,
@@ -98,7 +85,6 @@
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "jsonrpc-el": "jsonrpc-el",
-        "kubed-el": "kubed-el",
         "nixpkgs": "nixpkgs"
       }
     },

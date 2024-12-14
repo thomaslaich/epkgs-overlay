@@ -18,10 +18,6 @@
       url = "https://elpa.gnu.org/packages/jsonrpc-1.0.25.tar";
       flake = false;
     };
-    kubed-el = {
-      url = "https://elpa.gnu.org/packages/kubed-0.4.2.tar";
-      flake = false;
-    };
   };
 
   outputs =
@@ -31,7 +27,6 @@
       flake-utils,
       copilot-el,
       jsonrpc-el,
-      kubed-el,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -68,20 +63,11 @@
           src = "${jsonrpc-el}/jsonrpc.el";
           packageRequires = [ pkgs.emacs ];
         };
-
-        kubed = pkgs.emacsPackages.elpaBuild {
-          pname = "kubed";
-          ename = "kubed";
-          version = "0.4.2";
-          src = "${kubed-el}";
-          packageRequires = [ pkgs.emacs ];
-        };
       in
       {
         packages = {
           inherit copilot;
           inherit jsonrpc;
-          inherit kubed;
         };
       }
     )
